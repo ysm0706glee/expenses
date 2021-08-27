@@ -42,6 +42,34 @@ app.get("/yen", async (req, res) => {
   res.json({ yen });
 });
 
+app.get("/date", async (req, res) => {
+  const date = await knex.select("date").from("expenses");
+
+  res.json({ date });
+});
+
+app.get("/selectedDate", async (req, res) => {
+  const selectedDate = req.query.selectedDate;
+
+  const plusEuro = await knex("expenses")
+    .where({ plus_or_minus: "+", date: selectedDate })
+    .sum("euro");
+
+  const plusYen = await knex("expenses")
+    .where({ plus_or_minus: "+", date: selectedDate })
+    .sum("yen");
+
+  const minusEuro = await knex("expenses")
+    .where({ plus_or_minus: "-", date: selectedDate })
+    .sum("euro");
+
+  const minusYen = await knex("expenses")
+    .where({ plus_or_minus: "-", date: selectedDate })
+    .sum("yen");
+
+  res.json({ plusEuro, plusYen, minusEuro, minusYen });
+});
+
 app.post("/", async (req, res) => {
   const expense = {
     plus_or_minus: req.body.plusOrMinus,

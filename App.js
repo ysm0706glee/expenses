@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button, TextInput, Alert } from "react-native";
 import axios from "axios";
 import moment from "moment";
+import RNPickerSelect from "react-native-picker-select";
 
 export default function App() {
   const [plusEuro, setPlusEuro] = useState(0);
@@ -13,6 +14,12 @@ export default function App() {
   const [euro, setEuro] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [euroOrYen, setEuroOrYen] = useState("euro");
+  const [dateList, setDateList] = useState([{ label: "a", value: "a" }]);
+  const [selectedDate, setSelectedDate] = useState(
+    moment().format("MMMM YYYY")
+  );
+
+  const date = moment().format("MMMM YYYY");
 
   useEffect(() => {
     const fetch = async () => {
@@ -27,7 +34,50 @@ export default function App() {
     fetch();
   }, [submitted]);
 
-  const date = moment().format("MMMM YYYY");
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetch = async () => {
+      const res = await axios.get("http://localhost:3001/date");
+
+      const result = [];
+
+      for (const x of res.data.date) {
+        if (!result.includes(x.date) && x.date !== date) {
+          result.push(x.date);
+        }
+      }
+
+      if (isMounted) {
+        setDateList(
+          result.map((date) => {
+            return { label: date, value: date };
+          })
+        );
+      }
+    };
+
+    fetch();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [submitted]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const res = await axios.get(
+        `http://localhost:3001/selectedDate?selectedDate=${selectedDate}`
+      );
+
+      setPlusEuro(res.data.plusEuro[0].sum);
+      setPlusYen(res.data.plusYen[0].sum);
+      setMinusEuro(res.data.minusEuro[0].sum);
+      setMinusYen(res.data.minusYen[0].sum);
+    };
+
+    fetch();
+  }, [selectedDate]);
 
   const submit = async () => {
     if (plusOrMinus === "") {
@@ -68,19 +118,16 @@ export default function App() {
             title="euro/yen"
             color="silver"
           />
+          <RNPickerSelect
+            style={pickerSelectStyles}
+            placeholder={{ label: date, value: date }}
+            onValueChange={(value) => setSelectedDate(value)}
+            items={dateList}
+          />
           <Text
             style={{
               color: "white",
-              paddingBottom: 30,
-              fontSize: 50,
-            }}
-          >
-            {date}
-          </Text>
-          <Text
-            style={{
-              color: "white",
-              paddingTop: 10,
+              paddingTop: 30,
               paddingBottom: 10,
               fontSize: 30,
             }}
@@ -164,5 +211,32 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     top: -10,
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 50,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "silver",
+    borderRadius: 4,
+    color: "white",
+    paddingRight: 30, // to ensure the text is never behind the icon
+    marginTop: 30,
+    textAlign: "center",
+  },
+  inputAndroid: {
+    fontSize: 50,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: "silver",
+    borderRadius: 8,
+    color: "white",
+    paddingRight: 30, // to ensure the text is never behind the icon
+    marginTop: 30,
+    textAlign: "center",
   },
 });
