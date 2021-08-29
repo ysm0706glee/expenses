@@ -14,7 +14,7 @@ export default function App() {
   const [euro, setEuro] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [euroOrYen, setEuroOrYen] = useState("euro");
-  const [dateList, setDateList] = useState([{ label: "a", value: "a" }]);
+  const [dateList, setDateList] = useState([{ label: "", value: "" }]);
   const [selectedDate, setSelectedDate] = useState(
     moment().format("MMMM YYYY")
   );
