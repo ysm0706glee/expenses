@@ -1,4 +1,4 @@
-#Eexpenses
+# Eexpenses
 For people living in Europe from Japan, now you can manage your expenses with euro and yen by this app! 
 
 #### Video Demo:  [Expenses](https://youtu.be/lwZK5mSmhm0)
