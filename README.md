@@ -1,7 +1,7 @@
-# expenses
+#Eexpenses
 For people living in Europe from Japan, now you can manage your expenses with euro and yen by this app! 
 
-#### Video Demo:  <URL HERE>
+#### Video Demo:  [Expenses](https://youtu.be/lwZK5mSmhm0)
 
 ## How to install
 1. Clone the repo and `yarn`.
