@@ -7,6 +7,15 @@ For people living in Europe from Japan, now you can manage your expenses with eu
 
 #### Video Demo:  [Expenses](https://youtu.be/lwZK5mSmhm0)
 
+## Tech Stack
+* front-end
+  * React Native
+* API
+  * exchangerates
+* back-end
+  * node.js
+  * PostgreSQL
+
 ## How to install
 1. Clone the repo and `yarn`.
 1. Create a local postgres database.
