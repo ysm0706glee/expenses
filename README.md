@@ -1,6 +1,10 @@
 # Eexpenses
 For people living in Europe from Japan, now you can manage your expenses with euro and yen by this app! 
 
+<img width="200" alt="pic1" src="https://i.ibb.co/hMG3Q76/Simulator-Screen-Shot-i-Phone-12-Pro-Max-2021-08-29-at-14-19-13.png">
+<img width="200" alt="pic2" src="https://i.ibb.co/n1Bmy4L/Simulator-Screen-Shot-i-Phone-12-Pro-Max-2021-08-29-at-14-19-01.png">
+<img width="200" alt="pic3" src="https://i.ibb.co/1MTBC0Q/Simulator-Screen-Shot-i-Phone-12-Pro-Max-2021-08-29-at-14-19-05.png">
+
 #### Video Demo:  [Expenses](https://youtu.be/lwZK5mSmhm0)
 
 ## How to install
@@ -11,3 +15,4 @@ For people living in Europe from Japan, now you can manage your expenses with eu
 1. Run `npx knex migrate:latest` to create the database schema. 
 1. Run `yarn dev` to start the backend server in nodemon mode. 
 1. Run `yarn start` to start the front end server in hot-reload mode.
+
